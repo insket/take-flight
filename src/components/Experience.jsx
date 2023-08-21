@@ -13,13 +13,13 @@ export default function Experience() {
       <Environment background={false} files={"assets/textures/envmap.hdr"} />
 
       <PerspectiveCamera makeDefault position={[0, 10, 10]} />
-      <OrbitControls target={[0, 0, 0]} />
+      {/* <OrbitControls target={[0, 0, 0]} /> */}
 
       <SphereEnv />
 
       <LandScape />
 
-      {/* <Airplane /> */}
+      <Airplane />
 
       <directionalLight
          castShadow

@@ -15,14 +15,25 @@ export function Airplane(props) {
   const helixMeshRef = useRef();
 
   useFrame(({ camera }) => {
-    const matrix = new Matrix4()
+    planePosition.add(new Vector3(0, 0, -0.005));
+
+    const matrix = new Matrix4().multiply(
+      new Matrix4().makeTranslation(planePosition.x, planePosition.y, planePosition.z)
+      );
+    groupRef.current.matrixAutoUpdate = false;
+    groupRef.current.matrix.copy(matrix);
+    groupRef.current.matrixWorldNeedsUpdate = true;
+
+    const cameraMatrix = new Matrix4()
       .multiply(new Matrix4().makeTranslation(planePosition.x, planePosition.y, planePosition.z))
       .multiply(new Matrix4().makeRotationX(-0.2))
       .multiply(new Matrix4().makeTranslation(0, 0.015, 0.3));
 
-    groupRef.current.matrixAutoUpdate = false;
-    groupRef.current.matrix.copy(matrix);
-    groupRef.current.matrixWorldNeedsUpdate = true;
+    camera.matrixAutoUpdate = false;
+    camera.matrix.copy(cameraMatrix);
+    camera.matrixWorldNeedsUpdate = true;
+
+    helixMeshRef.current.rotation.z += 1.0;
   });
 
   return (
